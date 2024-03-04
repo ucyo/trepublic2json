@@ -2,13 +2,14 @@
     "name": "Python 3",
     "image": "python:3.12-slim",
     "features": {
-        "ghcr.io/devcontainers/features/git:1": {}
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
     },
     "customizations":
     {
-        "vscode": 
+        "vscode":
         {
-            "extensions": 
+            "extensions":
             [
                 "ms-python.python",
                 "ms-python.vscode-pylance"

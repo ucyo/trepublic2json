@@ -30,8 +30,8 @@ def parse_pdf(pdf):
     amount = float(amount)
 
     return dict(account=account, date=date, total_check_amount=amount, order_id=order, transaction_id=transaction,
-                name=share, isin=isin, shares=pieces, share_price=single_price, 
-                total_share_price=total_price, total_share_price_calc=pieces*single_price, 
+                name=share, isin=isin, shares=pieces, share_price=single_price,
+                total_share_price=total_price, total_share_price_calc=pieces*single_price,
                 order_type=order_type)
 
 def parse_order_type(header):
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     parser.add_argument('path', help='Path of the pdf files to parse.', type=_is_valid_path)
     args = parser.parse_args()
     search = os.path.join(args.path, '*.pdf')
-    
+
     pdfs = glob(search)
     pdfs = [pypdf.PdfReader(x) for x in pdfs]
     pdfs = [parse_pdf(pdf) for pdf in pdfs]
