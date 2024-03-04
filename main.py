@@ -2,15 +2,9 @@
 import pypdf
 from glob import glob
 from datetime import datetime
+import argparse
 import json
 import os
-
-base_path = os.path.join(os.path.dirname(__file__), 'pdfs')
-search = os.path.join(base_path, '*.pdf')
-pdfs = glob(search)
-
-# creating a pdf reader object
-pdfs = [pypdf.PdfReader(x) for x in pdfs]
 
 def parse_pdf(pdf):
     text = pdf.pages[0].extract_text()
@@ -82,6 +76,20 @@ def make_ger_float_us_float(ger_float):
     us_float = ger_float.replace(',','.')
     return us_float
 
-res = [parse_pdf(pdf) for pdf in pdfs]
-res = json.dumps(res, indent=2, sort_keys=True)
-print(res)
+def _is_valid_path(path):
+    if os.path.isdir(path):
+        return path
+    else:
+        raise argparse.ArgumentTypeError(f"main.py: error: argument path: {path} is not a valid path")
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('path', help='Path of the pdf files to parse.', type=_is_valid_path)
+    args = parser.parse_args()
+    search = os.path.join(args.path, '*.pdf')
+    
+    pdfs = glob(search)
+    pdfs = [pypdf.PdfReader(x) for x in pdfs]
+    pdfs = [parse_pdf(pdf) for pdf in pdfs]
+    pdfs = json.dumps(pdfs, indent=2, sort_keys=True)
+    print(pdfs)
