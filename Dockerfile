@@ -11,9 +11,13 @@ RUN groupadd --gid 1000 python && \
 
 USER python
 
-RUN pip install pypdf 
-
 ENV RYE_INSTALL_OPTION="--yes"
 ENV RYE_VERSION="0.27.0"
 
 RUN curl -sSf https://rye-up.com/get | bash
+
+COPY --chown=python:python pyproject.toml README.md /workspaces/trepublic/
+
+WORKDIR /workspaces/trepublic
+
+RUN rye sync
