@@ -1,6 +1,9 @@
 {
     "name": "Python 3",
-    "image": "python:3.12-slim",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
@@ -15,6 +18,5 @@
                 "ms-python.vscode-pylance"
             ]
         }
-    },
-    "postCreateCommand": "pip install pypdf"
+    }
 }
