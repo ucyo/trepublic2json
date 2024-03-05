@@ -1,2 +1,3 @@
-# trepublic
-A reader for reports from Trade Republic PDFs
+# trepublic2json
+
+A trade republic 
