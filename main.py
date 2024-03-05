@@ -6,6 +6,9 @@ import argparse
 import json
 import os
 
+class TRParserError(Exception):
+    pass
+
 def parse_pdf(pdf):
     text = pdf.pages[0].extract_text()
     header, details = text.split('\nAUSFÜHRUNG ', 1)
@@ -41,7 +44,7 @@ def parse_order_type(header):
     elif tmp.startswith('Verkauf'):
         return 'sell'
     else:
-        raise ValueError('Unknown order type')
+        raise TRParserError('Unknown order type')
 
 def parse_obj(details):
     share, rem = details.split('ISIN:', 1)
@@ -80,7 +83,7 @@ def _is_valid_path(path):
     if os.path.isdir(path):
         return path
     else:
-        raise argparse.ArgumentTypeError(f"main.py: error: argument path: {path} is not a valid path")
+        raise TRParserError(f"main.py: error: argument path: {path} is not a valid path")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
