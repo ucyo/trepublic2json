@@ -6,9 +6,9 @@ import argparse
 import json
 import os
 
+
 class TRParserError(Exception):
     pass
-
 
 
 def main():
