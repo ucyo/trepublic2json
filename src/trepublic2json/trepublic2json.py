@@ -9,6 +9,21 @@ import os
 class TRParserError(Exception):
     pass
 
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('path', help='Path of the pdf files to parse.', type=_is_valid_path)
+    args = parser.parse_args()
+    search = os.path.join(args.path, '*.pdf')
+
+    pdfs = glob(search)
+    pdfs = [pypdf.PdfReader(x) for x in pdfs]
+    pdfs = [parse_pdf(pdf) for pdf in pdfs]
+    pdfs = json.dumps(pdfs, indent=2, sort_keys=True)
+    print(pdfs)
+
+
 def parse_pdf(pdf):
     text = pdf.pages[0].extract_text()
     header, details = text.split('\nAUSFÜHRUNG ', 1)
@@ -86,13 +101,4 @@ def _is_valid_path(path):
         raise TRParserError(f"main.py: error: argument path: {path} is not a valid path")
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('path', help='Path of the pdf files to parse.', type=_is_valid_path)
-    args = parser.parse_args()
-    search = os.path.join(args.path, '*.pdf')
-
-    pdfs = glob(search)
-    pdfs = [pypdf.PdfReader(x) for x in pdfs]
-    pdfs = [parse_pdf(pdf) for pdf in pdfs]
-    pdfs = json.dumps(pdfs, indent=2, sort_keys=True)
-    print(pdfs)
+    main()
