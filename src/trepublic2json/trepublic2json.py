@@ -19,16 +19,19 @@ def main():
     search = os.path.join(args.path, "*.pdf")
 
     pdfs = glob(search)
-    pdfs = [pypdf.PdfReader(x) for x in pdfs]
     pdfs = [parse_pdf(pdf) for pdf in pdfs]
     pdfs = json.dumps(pdfs, indent=2, sort_keys=True)
     print(pdfs)
 
 
-def parse_pdf(pdf):
+def parse_pdf(filename: str) -> dict:
+    pdf = pypdf.PdfReader(filename)
     text = pdf.pages[0].extract_text()
     header, details = text.split("\nAUSFÜHRUNG ", 1)
     order, transaction = header[-9:], details[:9]
+    rem = details.split("DEPOT ", 1)[1]
+    depot_num, rem = rem.split("\n", 1)
+    depot_owner, rem = rem.split("\n", 1)
 
     header, details = text.split("VERRECHNUNGSKONTO WERTSTELLUNG BETRAG\n", 1)
     account, rem = details.split(" ", 1)
@@ -49,7 +52,10 @@ def parse_pdf(pdf):
     amount = float(amount)
 
     return dict(
-        account=account,
+        filename=filename,
+        depot_num=depot_num,
+        depot_owner=depot_owner,
+        account_num=account,
         date=date,
         total_check_amount=amount,
         order_id=order,
