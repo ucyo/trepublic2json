@@ -18,7 +18,15 @@
                 "ms-python.vscode-pylance",
                 "tamasfe.even-better-toml",
                 "ms-azuretools.vscode-docker"
-            ]
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/home/python/.rye/shims/python",
+                "python.testing.pytestArgs": [
+                    "tests"
+                ],
+                "python.testing.unittestEnabled": false,
+                "python.testing.pytestEnabled": true
+            }
         }
     }
 }

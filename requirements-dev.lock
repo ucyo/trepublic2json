@@ -8,5 +8,12 @@
 #   with-sources: false
 
 -e file:.
+iniconfig==2.0.0
+    # via pytest
+packaging==23.2
+    # via pytest
+pluggy==1.4.0
+    # via pytest
 pypdf==4.1.0
     # via trepublic2json
+pytest==8.0.2
