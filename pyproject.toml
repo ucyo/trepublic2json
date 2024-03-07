@@ -12,7 +12,7 @@ readme = "README.md"
 requires-python = ">= 3.8"
 
 [project.scripts]
-trepublic2json = 'trepublic2json.trepublic2json:main'
+trepublic2json = 'trepublic2json.bin:main'
 
 [build-system]
 requires = ["hatchling"]

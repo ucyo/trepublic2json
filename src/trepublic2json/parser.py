@@ -1,27 +1,9 @@
 # importing all the required modules
-import argparse
-import json
-import os
 from datetime import datetime
-from glob import glob
 
 import pypdf
 
-
-class TRParserError(Exception):
-    pass
-
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("path", help="Path of the pdf files to parse.", type=_is_valid_path)
-    args = parser.parse_args()
-    search = os.path.join(args.path, "*.pdf")
-
-    pdfs = glob(search)
-    pdfs = [parse_pdf(pdf) for pdf in pdfs]
-    pdfs = json.dumps(pdfs, indent=2, sort_keys=True)
-    print(pdfs)
+from trepublic2json.error import TRParserError
 
 
 def parse_pdf(filename: str) -> dict:
@@ -117,14 +99,3 @@ def make_ger_float_us_float(ger_float):
     ger_float = ger_float.replace(".", "")
     us_float = ger_float.replace(",", ".")
     return us_float
-
-
-def _is_valid_path(path):
-    if os.path.isdir(path):
-        return path
-    else:
-        raise TRParserError(f"main.py: error: argument path: {path} is not a valid path")
-
-
-if __name__ == "__main__":
-    main()
