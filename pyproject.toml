@@ -27,3 +27,20 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/trepublic2json"]
+
+[tool.ruff]
+# Set the maximum line length to 79.
+line-length = 151
+
+[tool.ruff.lint]
+# Add the `line-too-long` rule to the enforced rule set.
+extend-select = [
+    "E501",
+    "I",
+    "E",
+    "W",
+    "UP",
+]
+
+[tool.ruff.format]
+preview = true
