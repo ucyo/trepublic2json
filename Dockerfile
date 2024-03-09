@@ -1,4 +1,4 @@
-FROM python:3.12-slim as builder
+FROM python:3.12-slim as base
 
 ENV LANG="C.UTF-8" LC_ALL="C.UTF-8" PATH="/home/python/.rye/shims:/home/python/.rye/env:/home/python/.local/bin:$PATH" PIP_NO_CACHE_DIR="false"
 
@@ -21,3 +21,15 @@ COPY --chown=python:python pyproject.toml README.md /workspaces/trepublic/
 WORKDIR /workspaces/trepublic
 
 RUN rye sync
+
+FROM base as builder
+
+RUN rye sync 
+RUN rye install .
+RUN rye build --clean --wheel
+
+FROM python:3.12-slim as final
+
+COPY --from=builder /workspaces/trepublic/dist/*.whl .
+
+RUN pip install trepublic2json-*-py3-none-any.whl
