@@ -58,6 +58,8 @@ jobs:
         --repo '${{ github.repository }}'
         --notes ""
         --draft
+        --title "Release v${{ needs.build.outputs.tag }}"
+        --verify-tag
     - name: Upload artifact signatures to GitHub Release
       env:
         GITHUB_TOKEN: ${{ github.token }}
