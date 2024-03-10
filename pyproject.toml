@@ -23,7 +23,7 @@ classifiers = [
     "Topic :: File Formats",
 ]
 [project.urls]
-Source = "https://github.com/ucyo/trepublic"
+Source = "https://github.com/ucyo/trepublic2json"
 
 [project.scripts]
 trepublic2json = 'trepublic2json:main'
