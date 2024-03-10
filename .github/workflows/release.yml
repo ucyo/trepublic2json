@@ -16,7 +16,7 @@ jobs:
         version: '0.28.0'
     - run: rye build --clean --all --verbose
     - id: get_version
-      run: echo "version=$(rye version)" >> $GITHUB_ENV
+      run: echo "version=$(rye version)" >> $GITHUB_OUTPUT
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "dist/*"
