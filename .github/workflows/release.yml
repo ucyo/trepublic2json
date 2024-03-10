@@ -31,6 +31,8 @@ jobs:
     needs:
     - build
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ needs.build.outputs.tag }}
 
     environment:
       name: pypi
@@ -78,10 +80,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
       run: >-
-        gh release create '${{ needs.build.outputs.tag }}'
+        gh release create '${{ needs.publish-to-pypi.outputs.tag }}'
         --repo '${{ github.repository }}'
         --notes ""
-        --title "v${{ needs.build.outputs.tag }}"
+        --title "v${{ needs.publish-to-pypi.outputs.tag }}"
     - name: Upload artifact signatures to GitHub Release
       env:
         GITHUB_TOKEN: ${{ github.token }}
@@ -89,5 +91,5 @@ jobs:
       # `dist/` contains the built packages, and the
       # sigstore-produced signatures and certificates.
       run: >-
-        gh release upload '${{ needs.build.outputs.tag }}' dist/**
+        gh release upload '${{ needs.publish-to-pypi.outputs.tag }}' dist/**
         --repo '${{ github.repository }}'
