@@ -11,25 +11,27 @@ RUN groupadd --gid 1000 python && \
 
 USER python
 
+WORKDIR /home/python/trepublic
+
 ENV RYE_INSTALL_OPTION="--yes"
 ENV RYE_VERSION="0.27.0"
 
 RUN curl -sSf https://rye-up.com/get | bash
 
-COPY --chown=python:python pyproject.toml README.md /workspaces/trepublic/
+COPY --chown=python:python pyproject.toml README.md /home/python/trepublic/
 
-WORKDIR /workspaces/trepublic
+WORKDIR /home/python/trepublic
 
 RUN rye sync
 
 FROM base as builder
 
-RUN rye sync 
-RUN rye install .
-RUN rye build --clean --wheel
+COPY --chown=python:python ./src /home/python/trepublic/src
 
-FROM python:3.12-slim as final
+RUN rye sync && rye build --clean --wheel
 
-COPY --from=builder /workspaces/trepublic/dist/*.whl .
+FROM python:3.12-alpine3.19 as final
+
+COPY --from=builder /home/python/trepublic/dist/trepublic2json-*-py3-none-any.whl .
 
 RUN pip install trepublic2json-*-py3-none-any.whl

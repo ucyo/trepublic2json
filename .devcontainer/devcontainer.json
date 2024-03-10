@@ -5,6 +5,8 @@
         "context": "..",
         "target": "base"
     },
+    "workspaceFolder": "/home/python/trepublic",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/python/trepublic,type=bind",
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
