@@ -41,6 +41,16 @@ dev-dependencies = [
 [tool.hatch.metadata]
 allow-direct-references = true
 
+[tool.hatch.build]
+exclude = [
+    "/.*",
+    "Dockerfile",
+    "Makefile",
+    "/tests",
+    "/docs",
+    "/.gitignore",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/trepublic2json"]
 
