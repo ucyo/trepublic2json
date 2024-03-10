@@ -41,7 +41,7 @@ pip install trepublic2json
 Or from source using [`rye`](https://rye-up.com/guide/):
 
 ```bash
-git clone git@github.com:ucyo/trepublic.git && cd trepublic && rye install .
+git clone git@github.com:ucyo/trepublic2json.git && cd trepublic2json && rye install .
 ```
 
 ## Usage
