@@ -1,0 +1,24 @@
+name: Release
+
+on: 
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v3
+    - uses: eifinger/setup-rye@v2
+      with:
+        version: '0.12.2'
+    - run: rye build --clean --all --verbose
+    - id: get_version
+      run: echo "version=$(rye version)" >> $GITHUB_ENV
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "dist/*"
+        draft: true
+        tag: ${{ steps.get_version.outputs.version }}

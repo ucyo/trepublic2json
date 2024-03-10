@@ -5,6 +5,7 @@
         "context": "..",
         "target": "base"
     },
+    "runArgs": ["--env-file", ".env"],
     "workspaceFolder": "/home/python/trepublic",
     "workspaceMount": "source=${localWorkspaceFolder},target=/home/python/trepublic,type=bind",
     "features": {
