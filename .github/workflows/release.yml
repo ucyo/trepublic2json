@@ -25,13 +25,37 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/
+
+  publish-to-pypi:
+    name: Publish Python distribution to TestPyPI
+    needs:
+    - build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/trepublic2json
+
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v3
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish distribution to TestPyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_TOKEN }}
   
   github-release:
     name: >-
       Sign the Python distribution with Sigstore
       and upload them to GitHub Release
     needs:
-    - build
+    - publish-to-pypi
     runs-on: ubuntu-latest
 
     permissions:
@@ -57,7 +81,6 @@ jobs:
         gh release create '${{ needs.build.outputs.tag }}'
         --repo '${{ github.repository }}'
         --notes ""
-        --draft
         --title "v${{ needs.build.outputs.tag }}"
     - name: Upload artifact signatures to GitHub Release
       env:
@@ -68,28 +91,3 @@ jobs:
       run: >-
         gh release upload '${{ needs.build.outputs.tag }}' dist/**
         --repo '${{ github.repository }}'
-
-  publish-to-testpypi:
-    name: Publish Python distribution to TestPyPI
-    needs:
-    - build
-    runs-on: ubuntu-latest
-
-    environment:
-      name: testpypi
-      url: https://test.pypi.org/p/trepublic2json
-
-    permissions:
-      id-token: write  # IMPORTANT: mandatory for trusted publishing
-
-    steps:
-    - name: Download all the dists
-      uses: actions/download-artifact@v3
-      with:
-        name: python-package-distributions
-        path: dist/
-    - name: Publish distribution to TestPyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        password: ${{ secrets.TESTPYPI_TOKEN }}
-        repository-url: https://test.pypi.org/legacy/

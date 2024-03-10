@@ -1,6 +1,6 @@
 
 
-<p align="center"><img src="./assets/logo.svg" alt="Logo for transformation of trade republic reports to json" width="200" height="100" ></p>
+<p align="center"><img src="https://github.com/ucyo/trepublic2json/raw/main/assets/logo.svg" alt="Logo for transformation of trade republic reports to json" width="200" height="100" ></p>
 <h1 align="center"> trepublic2json</h1>
 
 This is a library for parsing reports and invoices from [Trade Republic](traderepublic.com) to JSON. 
