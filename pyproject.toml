@@ -1,6 +1,6 @@
 [project]
 name = "trepublic2json"
-version = "0.3.2"
+version = "0.3.3"
 description = "Parse and convert Invoice PDFs from Trade republic to JSON."
 authors = [
     { name = "ucyo", email = "cayoglu@me.com" }
