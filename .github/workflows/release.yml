@@ -69,7 +69,7 @@ jobs:
         gh release upload '${{ needs.build.outputs.tag }}' dist/**
         --repo '${{ github.repository }}'
 
- publish-to-testpypi:
+  publish-to-testpypi:
     name: Publish Python distribution to TestPyPI
     needs:
     - build
