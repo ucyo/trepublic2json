@@ -1,7 +1,7 @@
 [project]
 name = "trepublic2json"
 version = "0.3.0"
-description = "Add your description here"
+description = "Parse and convert Invoice PDFs from Trade republic to JSON."
 authors = [
     { name = "ucyo", email = "cayoglu@me.com" }
 ]
@@ -10,9 +10,23 @@ dependencies = [
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
+license = "MIT"
+keywords = [
+    "trade republic",
+    "pdf",
+    "parser",
+    "json"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Topic :: File Formats :: JSON",
+    "Topic :: File Formats",
+]
+[project.urls]
+Source = "https://github.com/ucyo/trepublic"
 
 [project.scripts]
-tr2json = 'trepublic2json:main'
+trepublic2json = 'trepublic2json:main'
 
 [build-system]
 requires = ["hatchling"]

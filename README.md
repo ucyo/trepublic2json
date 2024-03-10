@@ -1,6 +1,6 @@
 
 <center>
-<img src="./assets/logo.svg" alt="SVG mit img laden" width="200" height="100" >
+<img src="./assets/logo.svg" alt="Logo for transformation of trade republic reports to json" width="200" height="100" >
 <h1> trepublic2json
 </center>
 
@@ -43,4 +43,19 @@ Or from source using [`rye`](https://rye-up.com/guide/):
 
 ```bash
 git clone git@github.com:ucyo/trepublic.git && cd trepublic && rye install .
+```
+
+## Usage
+
+Once the package is installed you can use the command-line tool `trepublic2json`:
+
+```bash
+> trepublic2json --help
+usage: trepublic2json [-h] path
+
+positional arguments:
+  path        Path of the pdf files to parse.
+
+options:
+  -h, --help  show this help message and exit
 ```
