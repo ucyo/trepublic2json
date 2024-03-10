@@ -1,6 +1,6 @@
 [project]
 name = "trepublic2json"
-version = "0.1.0"
+version = "0.3.0"
 description = "Add your description here"
 authors = [
     { name = "ucyo", email = "cayoglu@me.com" }
