@@ -74,9 +74,9 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: 
-          - ${{ secrets.DOCKER_USERNAME }}/trepublic2json:latest
-          - ${{ secrets.DOCKER_USERNAME }}/trepublic2json:${{ needs.publish-to-pypi.outputs.tag }}
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/trepublic2json:latest
+          ${{ secrets.DOCKER_USERNAME }}/trepublic2json:${{ needs.publish-to-pypi.outputs.tag }}
   
   github-release:
     name: Sign and upload to GitHub Release
