@@ -30,7 +30,7 @@ jobs:
     name: Publish to PyPI
     needs:
     - build
-    runs-on: ubuntu-latestgh-action-sigstore-python
+    runs-on: ubuntu-latest
     outputs:
       tag: ${{ needs.build.outputs.tag }}
 
